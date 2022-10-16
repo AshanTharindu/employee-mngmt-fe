@@ -29,7 +29,7 @@ const Home = (props) => {
       <AppBar position='relative'>
         <Toolbar>
           <Typography variant='h6' color='inherit' noWrap>
-            Autohaus Royale
+            Autohaus Royal
           </Typography>
         </Toolbar>
       </AppBar>

@@ -4,7 +4,7 @@ import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { registerEmployee } from '../../store/employee-actions';
 
@@ -24,9 +24,16 @@ const roles = [
 ];
 
 const EmloyeeRegister = () => {
-  const [currency, setCurrency] = React.useState();
+  const [role, setRole] = useState();
+  const [username, setUsername] = useState();
+  const [password, setPassoword] = useState();
+  const [email, setEmail] = useState();
+  const [firstname, setFirstname] = useState();
+  const [lastname, setLastname] = useState();
+  const [address, setAddress] = useState();
+
   const handleChange = (event) => {
-    setCurrency(event.target.value);
+    setRole(event.target.value);
   };
 
   const dispatch = useDispatch();
@@ -35,7 +42,16 @@ const EmloyeeRegister = () => {
    * Saves registration data of the use
    */
   const onSubmitHandler = () => {
-    dispatch(registerEmployee({}));
+    dispatch(
+      registerEmployee({
+        username,
+        email,
+        firstname,
+        lastname,
+        address,
+        role,
+      })
+    );
   };
 
   return (
@@ -46,65 +62,76 @@ const EmloyeeRegister = () => {
           Employee Registration
         </Typography>
         <Box
-          component='form'
           sx={{
-            '& .MuiTextField-root': { m: 1, width: '25ch' },
+            width: 500,
+            maxWidth: '100%',
           }}
-          noValidate
-          autoComplete='off'
         >
           <div>
             <TextField
+              fullWidth
               error={false}
-              id='outlined-error-helper-text'
-              label='User Name'
+              id='username'
+              label='Username'
               defaultValue=''
+              onChange={(event) => setUsername(event.target.value)}
             />
           </div>
           <div>
             <TextField
-              id='outlined-password-input'
+              fullWidth
+              id='password'
               label='Password'
               type='password'
               autoComplete='current-password'
+              onChange={(event) => setPassoword(event.target.value)}
             />
           </div>
           <div>
             <TextField
-              id='outlined-error-helper-text'
+              fullWidth
+              id='email'
               label='Email'
               defaultValue=''
+              onChange={(event) => setEmail(event.target.value)}
             />
           </div>
           <div>
             <TextField
-              id='outlined-error-helper-text'
+              fullWidth
+              id='firstname'
               label='First Name'
               defaultValue=''
+              onChange={(event) => setFirstname(event.target.value)}
             />
           </div>
           <div>
             <TextField
-              id='outlined-error-helper-text'
+              fullWidth
+              id='lastname'
               label='Last Name'
               defaultValue=''
+              onChange={(event) => setLastname(event.target.value)}
             />
           </div>
           <div>
             <TextField
-              id='outlined-multiline-static'
+              fullWidth
+              id='address'
               label='Address'
               multiline
               rows={4}
               defaultValue=''
+              onChange={(event) => setAddress(event.target.value)}
             />
           </div>
           <div>
             <TextField
+              fullWidth
               id='outlined-select-currency'
               select
               label='Select'
-              value={currency}
+              value={role}
               onChange={handleChange}
               helperText='Select Your Role'
             >
@@ -115,7 +142,14 @@ const EmloyeeRegister = () => {
               ))}
             </TextField>
           </div>
-          <Button variant='contained'>Register</Button>
+          <Button
+            variant='contained'
+            onClick={() => {
+              onSubmitHandler();
+            }}
+          >
+            Register
+          </Button>
         </Box>
       </Container>
     </React.Fragment>
