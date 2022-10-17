@@ -19,21 +19,15 @@ export const fetchEmloyees = () => {
         method: 'get',
       });
 
-      if (!response.ok) throw new Error('Could not fetch employee data!');
+      if (response.status !== 200)
+        throw new Error('Could not fetch employee data!');
 
-      const data = await response.json();
-
-      return data;
+      return response.data;
     };
 
     try {
-      const cartData = await fetchData();
-      dispatch(
-        employeeActions.addEmloyee({
-          items: cartData.items || [],
-          totalQuantity: cartData.totalQuantity,
-        })
-      );
+      const employees = await fetchData();
+      dispatch(employeeActions.addEmloyees(employees || []));
     } catch (error) {
       console.log(error);
     }
@@ -49,8 +43,12 @@ export const registerEmployee = (employee) => {
         data: employee,
         method: 'post',
       });
+      console.log(
+        '🚀 ~ file: employee-actions.js ~ line 45 ~ saveEmployee ~ response',
+        response
+      );
 
-      if (!response.ok) throw new Error('Registering employee failed');
+      if (response.status !== 200) throw new Error('Registering employee failed');
     };
 
     try {
