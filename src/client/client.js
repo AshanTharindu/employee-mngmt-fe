@@ -9,6 +9,18 @@ const instance = axios.create({
   },
 });
 
+instance.interceptors.request.use(
+  async (config) => {
+    const token = localStorage.getItem('token');
+    if(!token) Promise.reject(`Please authenticate`)
+    config.headers.Authorization = `Bearer ${token}`;
+    return config;
+  },
+  (error) => {
+    Promise.reject(error);
+  }
+);
+
 const fetchEmployees = async () => {
   const response = await instance({
     url: '/employees',
