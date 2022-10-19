@@ -16,7 +16,7 @@ const employeeSlice = createSlice({
       state.employees.push(action.payload);
     },
     addEmloyees(state, action) {
-      state.employees = action.payload;
+      state.employees = [...state.employees, action.payload];
     },
   },
 });

@@ -22,3 +22,14 @@ export const registerEmployee = (employee) => {
     }
   };
 };
+
+export const addEmployees = (employees) => {
+  return async (dispatch) => {
+    try {
+      const registeredEmployees = await client.addEmployees({ employees });
+      dispatch(employeeActions.addEmloyees(registeredEmployees));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
