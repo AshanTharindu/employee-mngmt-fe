@@ -10,10 +10,14 @@ export const AuthProvider = ({ children }) => {
 
   // call this function when you want to authenticate the user
   const login = async ({ username, password }) => {
-    const token = await client.signIn(username, password);
-    setToken(token);
-    localStorage.setItem('token', token);
-    navigate('/employees');
+    try {
+      const token = await client.signIn(username, password);
+      setToken(token);
+      localStorage.setItem('token', token);
+      navigate('/employees');
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   // call this function to sign out logged in user
