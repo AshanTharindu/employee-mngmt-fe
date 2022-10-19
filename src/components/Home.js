@@ -70,7 +70,7 @@ const Home = (props) => {
               <Link to='/registration'>
                 <Button variant='contained'>Register</Button>
               </Link>
-              <Link to='/login'>
+              <Link to='/signin'>
                 <Button variant='outlined'>Login</Button>
               </Link>
             </Stack>
