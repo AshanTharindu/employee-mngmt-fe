@@ -5,7 +5,7 @@ export const fetchEmloyees = () => {
   return async (dispatch) => {
     try {
       const employees = await client.fetchEmployees();
-      dispatch(employeeActions.addEmloyees(employees || []));
+      dispatch(employeeActions.fetchEmloyees(employees || []));
     } catch (error) {
       console.log(error);
     }
