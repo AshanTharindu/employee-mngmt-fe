@@ -45,6 +45,7 @@ const EmloyeeRegister = () => {
     dispatch(
       registerEmployee({
         username,
+        password,
         email,
         firstname,
         lastname,

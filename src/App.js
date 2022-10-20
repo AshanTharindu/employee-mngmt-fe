@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import SignIn from './components/auth/SignIn';
+import CsvImport from './components/csvImport/CsvImport';
 import EmployeePage from './components/EmployeePage';
 import EmloyeeRegister from './components/employeeRegister/EmployeeRegister';
 import Home from './components/Home';
@@ -15,6 +16,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/signin' element={<SignIn />} />
           <Route path='/registration' element={<EmloyeeRegister />}></Route>
+          <Route path='/csv-import' element={<CsvImport  />}></Route>
           <Route
             path='/employees'
             element={
