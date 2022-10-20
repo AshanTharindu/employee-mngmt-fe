@@ -1,29 +1,59 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchEmloyees } from '../store/employee-actions';
+import { EMPLOYEE_TYPES } from '../constants';
+import { deleteEmployee, fetchEmloyees } from '../store/employee-actions';
 import EmployeeCard from './employee/EmployeeCard';
 
 const EmployeePage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('here')
+    console.log('here');
     dispatch(fetchEmloyees());
   }, [dispatch]);
 
   const { employees } = useSelector((state) => state.employee);
 
+  /**
+   * Employee delete handler.
+   * Dispatches delete employee actions
+   * @param {*} id 
+   * @param {*} type 
+   */
+  const onDeleteHandler = (id, type) => {
+    dispatch(
+      deleteEmployee({
+        id,
+        type:
+          type === 1 ? EMPLOYEE_TYPES.REGISTERED : EMPLOYEE_TYPES.UN_REGISTERED,
+      })
+    );
+  };
+
   return (
     <>
-      {employees.map(({ id, firstname, lastname, email, address, role }) => (
-        <EmployeeCard
-          key={id}
-          name={`${firstname} ${lastname}`}
-          email={email}
-          address={address}
-          role={role}
-        />
-      ))}
+      {employees.map(
+        ({
+          _id: id,
+          firstname,
+          lastname,
+          email,
+          address,
+          role,
+          registered,
+        }) => (
+          <EmployeeCard
+            key={id}
+            id={id}
+            name={`${firstname} ${lastname}`}
+            email={email}
+            address={address}
+            role={role}
+            registered={registered}
+            onDeleteHandler={onDeleteHandler}
+          />
+        )
+      )}
     </>
   );
 };

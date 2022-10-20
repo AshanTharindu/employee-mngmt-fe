@@ -8,3 +8,8 @@ export const TRANSLATOR = {
   Land: 'country',
   Rolle: 'role',
 };
+
+export const EMPLOYEE_TYPES = {
+  REGISTERED: 'registered',
+  UN_REGISTERED: 'unregistered',
+};

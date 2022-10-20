@@ -33,3 +33,14 @@ export const addEmployees = (employees) => {
     }
   };
 };
+
+export const deleteEmployee = ({ id, type }) => {
+  return async (dispatch) => {
+    try {
+      await client.deleteEmployee(id, type);
+      dispatch(employeeActions.deleteEmployee(id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};

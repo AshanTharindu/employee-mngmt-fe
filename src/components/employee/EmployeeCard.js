@@ -4,7 +4,15 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 
-const EmployeeCard = ({ name, email, address, role }) => {
+const EmployeeCard = ({
+  id,
+  name,
+  email,
+  address,
+  role,
+  registered,
+  onDeleteHandler,
+}) => {
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
@@ -17,17 +25,18 @@ const EmployeeCard = ({ name, email, address, role }) => {
         <Typography sx={{ mb: 1.5 }} color='text.secondary'>
           {role}
         </Typography>
-        <Typography variant='body2'>
-          {address}
-        </Typography>
-        <Button variant="contained" color="success">
-        Edit
-      </Button>
-      <Button variant="contained" color="error">
-        Delete
-      </Button>
+        <Typography variant='body2'>{address}</Typography>
+        <Button variant='contained' color='success'>
+          Edit
+        </Button>
+        <Button
+          variant='contained'
+          color='error'
+          onClick={() => onDeleteHandler(id, registered)}
+        >
+          Delete
+        </Button>
       </CardContent>
-
     </Card>
   );
 };

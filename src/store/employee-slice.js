@@ -18,6 +18,11 @@ const employeeSlice = createSlice({
     addEmloyees(state, action) {
       state.employees = [...state.employees, action.payload];
     },
+    deleteEmployee(state, action) {
+      state.employees = state.employees.filter(
+        (employee) => employee._id !== action.payload
+      );
+    },
   },
 });
 
