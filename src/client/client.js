@@ -46,6 +46,18 @@ const registerEmployee = async (employee) => {
   return response.data;
 };
 
+const addEmployees = async (employees) => {
+  const response = await instance({
+    url: '/employees/csv-import',
+    timeout: 1000 * 5,
+    data: employees,
+    method: 'post',
+  });
+
+  if (response.status !== 200) throw new Error('Registering employee failed');
+  return response.data;
+};
+
 const signIn = async (username, password) => {
   const response = await instance({
     url: '/login',
@@ -58,4 +70,4 @@ const signIn = async (username, password) => {
   return response.data.token;
 };
 
-export default { fetchEmployees, registerEmployee, signIn };
+export default { fetchEmployees, registerEmployee, signIn, addEmployees };

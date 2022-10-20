@@ -10,13 +10,13 @@ const employeeSlice = createSlice({
   initialState: intitalEmployeeState,
   reducers: {
     fetchEmloyees(state, action) {
-      state.employees = action.payload.employees;
+      state.employees = action.payload;
     },
     addEmloyee(state, action) {
       state.employees.push(action.payload);
     },
     addEmloyees(state, action) {
-      state.employees = action.payload;
+      state.employees = [...state.employees, action.payload];
     },
   },
 });
