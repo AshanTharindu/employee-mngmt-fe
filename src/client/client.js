@@ -12,7 +12,7 @@ const instance = axios.create({
 instance.interceptors.request.use(
   async (config) => {
     const token = localStorage.getItem('token');
-    if(!token) Promise.reject(`Please authenticate`)
+    if (!token) Promise.reject(`Please authenticate`);
     config.headers.Authorization = `Bearer ${token}`;
     return config;
   },
@@ -46,6 +46,18 @@ const registerEmployee = async (employee) => {
   return response.data;
 };
 
+const updateEmployee = async (id, type, employee) => {
+  const response = await instance({
+    url: `/employees/${id}?type=${type}`,
+    timeout: 1000 * 5,
+    data: employee,
+    method: 'patch',
+  });
+
+  if (response.status !== 200) throw new Error('Registering employee failed');
+  return response.data;
+};
+
 const addEmployees = async (employees) => {
   const response = await instance({
     url: '/employees/csv-import',
@@ -70,4 +82,22 @@ const signIn = async (username, password) => {
   return response.data.token;
 };
 
-export default { fetchEmployees, registerEmployee, signIn, addEmployees };
+const deleteEmployee = async (id, type) => {
+  const response = await instance({
+    url: `/employees/${id}?type=${type}`,
+    timeout: 1000 * 5,
+    method: 'delete',
+  });
+
+  if (response.status !== 200) throw new Error('Registering employee failed');
+  return response.data;
+};
+
+export default {
+  fetchEmployees,
+  registerEmployee,
+  signIn,
+  addEmployees,
+  deleteEmployee,
+  updateEmployee
+};

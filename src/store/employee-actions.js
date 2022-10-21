@@ -23,11 +23,33 @@ export const registerEmployee = (employee) => {
   };
 };
 
+export const updateEmployee = ({ id, type, employee }) => {
+  return async (dispatch) => {
+    try {
+      const updatedEmployee = await client.updateEmployee(id, type, employee);
+      dispatch(employeeActions.updateEmployee(updatedEmployee));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 export const addEmployees = (employees) => {
   return async (dispatch) => {
     try {
       const registeredEmployees = await client.addEmployees({ employees });
       dispatch(employeeActions.addEmloyees(registeredEmployees));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const deleteEmployee = ({ id, type }) => {
+  return async (dispatch) => {
+    try {
+      await client.deleteEmployee(id, type);
+      dispatch(employeeActions.deleteEmployee(id));
     } catch (error) {
       console.log(error);
     }
