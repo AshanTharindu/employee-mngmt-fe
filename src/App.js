@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import ApplicationBase from './appBar/ApplicationBase';
 import SignIn from './components/auth/SignIn';
 import CsvImport from './components/csvImport/CsvImport';
 import EmployeeAddForm from './components/employee/EmployeeAddForm';
@@ -13,12 +14,20 @@ function App() {
   return (
     <AuthProvider>
       <div className='App'>
+        <ApplicationBase />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/signin' element={<SignIn />} />
           <Route path='/employee' element={<EmployeeAddForm />} />
           <Route path='/registration' element={<EmloyeeRegister />}></Route>
-          <Route path='/csv-import' element={<CsvImport  />}></Route>
+          <Route
+            path='/csv-import'
+            element={
+              <ProtectedRoute>
+                <CsvImport />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path='/employees'
             element={
