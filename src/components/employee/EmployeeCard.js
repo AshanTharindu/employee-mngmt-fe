@@ -3,7 +3,9 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
-import { updateEmployee } from '../../store/employee-actions';
+import { EMPLOYEE_TYPES } from '../../constants';
+import { addComment, updateEmployee } from '../../store/employee-actions';
+import CommentForm from '../comment/CommentForm';
 import Employee from './Employee';
 import EmployeeEditForm from './EmployeeEditForm';
 
@@ -18,6 +20,7 @@ const EmployeeCard = ({
   onDeleteHandler,
 }) => {
   const [showEdit, setShowEdit] = React.useState(false);
+  const [showComment, setShowComment] = React.useState(false);
 
   const dispatch = useDispatch();
 
@@ -32,42 +35,77 @@ const EmployeeCard = ({
     );
   };
 
+  const onCommentUpdateHandler = (comment) => {
+    setShowComment(false);
+    dispatch(
+      addComment({
+        empId: id,
+        empType: registered
+          ? EMPLOYEE_TYPES.REGISTERED
+          : EMPLOYEE_TYPES.UN_REGISTERED,
+        comment,
+      })
+    );
+  };
+
+  const getEmployeeCardContent = () => {
+    if (showEdit)
+      return (
+        <EmployeeEditForm
+          id={id}
+          firstname={firstname}
+          lastname={lastname}
+          email={email}
+          address={address}
+          role={role}
+          onUpdateHandler={onUpdateHandler}
+        />
+      );
+    return (
+      <Employee
+        id={id}
+        name={`${firstname} ${lastname}`}
+        email={email}
+        address={address}
+        role={role}
+      />
+    );
+  };
+
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
-        {showEdit ? (
-          <EmployeeEditForm
-            id={id}
-            firstname={firstname}
-            lastname={lastname}
-            email={email}
-            address={address}
-            role={role}
-            onUpdateHandler={onUpdateHandler}
-          />
-        ) : (
-          <Employee
-            id={id}
-            name={`${firstname} ${lastname}`}
-            email={email}
-            address={address}
-            role={role}
-          />
+        {getEmployeeCardContent()}
+        {showComment && (
+          <CommentForm onCommentUpdateHandler={onCommentUpdateHandler} />
         )}
-        <Button
-          variant='contained'
-          color='success'
-          onClick={() => setShowEdit(!showEdit)}
-        >
-          {showEdit ? 'Close' : 'Edit'}
-        </Button>
-        <Button
-          variant='contained'
-          color='error'
-          onClick={() => onDeleteHandler(id, registered)}
-        >
-          Delete
-        </Button>
+        {!showEdit && (
+          <Button
+            variant='contained'
+            color='success'
+            onClick={() => setShowComment(!showComment)}
+          >
+            {showComment ? 'Close' : 'Comment'}
+          </Button>
+        )}
+        {!showComment && (
+          <Button
+            variant='contained'
+            color='success'
+            onClick={() => setShowEdit(!showEdit)}
+          >
+            {showEdit ? 'Close' : 'Edit'}
+          </Button>
+        )}
+        {!(showComment || showEdit) && (
+          <Button
+            variant='contained'
+            color='error'
+            onClick={() => onDeleteHandler(id, registered)}
+          >
+            Delete
+          </Button>
+        )}
       </CardContent>
     </Card>
   );

@@ -32,6 +32,16 @@ const employeeSlice = createSlice({
         (employee) => employee._id !== action.payload
       );
     },
+    addComments(state, action) {
+      const { empId, comment } = action.payload;
+      state.employees = state.employees.map((employee) => {
+        if (employee._id === empId) {
+          (employee.comments = employee.comment || []).push(comment);
+          return employee;
+        }
+        return employee;
+      });
+    },
   },
 });
 
