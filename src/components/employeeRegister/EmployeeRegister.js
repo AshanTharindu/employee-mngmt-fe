@@ -6,22 +6,8 @@ import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { ROLES } from '../../constants';
 import { registerEmployee } from '../../store/employee-actions';
-
-const roles = [
-  {
-    value: 'admin',
-    label: 'Admin',
-  },
-  {
-    value: 'manager',
-    label: 'Manager',
-  },
-  {
-    value: 'worker',
-    label: 'Worker',
-  },
-];
 
 const EmloyeeRegister = () => {
   const [role, setRole] = useState();
@@ -136,7 +122,7 @@ const EmloyeeRegister = () => {
               onChange={handleChange}
               helperText='Select Your Role'
             >
-              {roles.map((option) => (
+              {ROLES.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
                   {option.label}
                 </MenuItem>

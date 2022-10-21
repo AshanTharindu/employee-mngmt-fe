@@ -23,6 +23,17 @@ export const registerEmployee = (employee) => {
   };
 };
 
+export const updateEmployee = ({ id, type, employee }) => {
+  return async (dispatch) => {
+    try {
+      const updatedEmployee = await client.updateEmployee(id, type, employee);
+      dispatch(employeeActions.updateEmployee(updatedEmployee));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 export const addEmployees = (employees) => {
   return async (dispatch) => {
     try {

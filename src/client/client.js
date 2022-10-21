@@ -46,6 +46,18 @@ const registerEmployee = async (employee) => {
   return response.data;
 };
 
+const updateEmployee = async (id, type, employee) => {
+  const response = await instance({
+    url: `/employees/${id}?type=${type}`,
+    timeout: 1000 * 5,
+    data: employee,
+    method: 'patch',
+  });
+
+  if (response.status !== 200) throw new Error('Registering employee failed');
+  return response.data;
+};
+
 const addEmployees = async (employees) => {
   const response = await instance({
     url: '/employees/csv-import',
@@ -87,4 +99,5 @@ export default {
   signIn,
   addEmployees,
   deleteEmployee,
+  updateEmployee
 };

@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { EMPLOYEE_TYPES } from '../constants';
-import { deleteEmployee, fetchEmloyees } from '../store/employee-actions';
-import EmployeeCard from './employee/EmployeeCard';
+import { EMPLOYEE_TYPES } from '../../constants';
+import { deleteEmployee, fetchEmloyees } from '../../store/employee-actions';
+import EmployeeCard from './EmployeeCard';
 
 const EmployeePage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('here');
     dispatch(fetchEmloyees());
   }, [dispatch]);
 
@@ -17,8 +16,8 @@ const EmployeePage = () => {
   /**
    * Employee delete handler.
    * Dispatches delete employee actions
-   * @param {*} id 
-   * @param {*} type 
+   * @param {*} id
+   * @param {*} type
    */
   const onDeleteHandler = (id, type) => {
     dispatch(
@@ -45,12 +44,14 @@ const EmployeePage = () => {
           <EmployeeCard
             key={id}
             id={id}
-            name={`${firstname} ${lastname}`}
+            firstname={firstname}
+            lastname={lastname}
             email={email}
             address={address}
             role={role}
             registered={registered}
             onDeleteHandler={onDeleteHandler}
+            // onUpdateHandler={}
           />
         )
       )}
