@@ -8,3 +8,23 @@ export const TRANSLATOR = {
   Land: 'country',
   Rolle: 'role',
 };
+
+export const EMPLOYEE_TYPES = {
+  REGISTERED: 'registered',
+  UN_REGISTERED: 'unregistered',
+};
+
+export const ROLES = [
+  {
+    value: 'admin',
+    label: 'Admin',
+  },
+  {
+    value: 'manager',
+    label: 'Manager',
+  },
+  {
+    value: 'worker',
+    label: 'Worker',
+  },
+];

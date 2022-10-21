@@ -18,6 +18,20 @@ const employeeSlice = createSlice({
     addEmloyees(state, action) {
       state.employees = [...state.employees, action.payload];
     },
+    updateEmployee(state, action) {
+      const updatedEmployee = action.payload;
+      state.employees = state.employees.map((emloyee) => {
+        if (emloyee._id === updatedEmployee._id) {
+          return updatedEmployee;
+        }
+        return emloyee;
+      });
+    },
+    deleteEmployee(state, action) {
+      state.employees = state.employees.filter(
+        (employee) => employee._id !== action.payload
+      );
+    },
   },
 });
 
