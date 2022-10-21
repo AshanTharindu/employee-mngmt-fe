@@ -26,13 +26,7 @@ const Home = (props) => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppBar position='relative'>
-        <Toolbar>
-          <Typography variant='h6' color='inherit' noWrap>
-            Autohaus Royal
-          </Typography>
-        </Toolbar>
-      </AppBar>
+      
       <main>
         {/* Hero unit */}
         <Box
