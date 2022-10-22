@@ -36,7 +36,7 @@ const employeeSlice = createSlice({
       const { empId, comment } = action.payload;
       state.employees = state.employees.map((employee) => {
         if (employee._id === empId) {
-          (employee.comments = employee.comment || []).push(comment);
+          (employee.comments = employee.comments || []).push(comment);
           return employee;
         }
         return employee;

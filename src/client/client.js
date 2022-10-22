@@ -66,7 +66,7 @@ const addEmployees = async (employees) => {
     method: 'post',
   });
 
-  if (response.status !== 200) throw new Error('Registering employee failed');
+  if (response.status !== 201) throw new Error('Registering employee failed');
   return response.data;
 };
 
@@ -101,7 +101,7 @@ const addComment = async (empId, empType, comment) => {
     method: 'post',
   });
 
-  if (response.status !== 200) throw new Error('Adding comment failed');
+  if (response.status !== 201) throw new Error('Adding comment failed');
   return response.data;
 };
 
