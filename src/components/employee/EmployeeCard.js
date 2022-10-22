@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { EMPLOYEE_TYPES } from '../../constants';
 import { addComment, updateEmployee } from '../../store/employee-actions';
 import CommentForm from '../comment/CommentForm';
+import Comments from '../comment/Comments';
 import Employee from './Employee';
 import EmployeeEditForm from './EmployeeEditForm';
 
@@ -17,12 +18,15 @@ const EmployeeCard = ({
   address,
   role,
   registered,
+  comments,
   onDeleteHandler,
 }) => {
   const [showEdit, setShowEdit] = React.useState(false);
   const [showComment, setShowComment] = React.useState(false);
 
   const dispatch = useDispatch();
+
+  const name = `${firstname} ${lastname}`;
 
   const onUpdateHandler = (id, type, employee) => {
     setShowEdit(false);
@@ -64,7 +68,7 @@ const EmployeeCard = ({
     return (
       <Employee
         id={id}
-        name={`${firstname} ${lastname}`}
+        name={name}
         email={email}
         address={address}
         role={role}
@@ -76,6 +80,7 @@ const EmployeeCard = ({
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
         {getEmployeeCardContent()}
+        <Comments comments={comments} />
         {showComment && (
           <CommentForm onCommentUpdateHandler={onCommentUpdateHandler} />
         )}

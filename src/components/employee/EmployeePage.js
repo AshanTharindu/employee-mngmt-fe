@@ -40,6 +40,7 @@ const EmployeePage = () => {
           address,
           role,
           registered,
+          comments
         }) => (
           <EmployeeCard
             key={id}
@@ -51,7 +52,7 @@ const EmployeePage = () => {
             role={role}
             registered={registered}
             onDeleteHandler={onDeleteHandler}
-            // onUpdateHandler={}
+            comments={comments}
           />
         )
       )}
