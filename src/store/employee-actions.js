@@ -55,3 +55,14 @@ export const deleteEmployee = ({ id, type }) => {
     }
   };
 };
+
+export const addComment = ({ empId, empType, comment }) => {
+  return async (dispatch) => {
+    try {
+      await client.addComment(empId, empType, { comment });
+      dispatch(employeeActions.addComments({ empId, comment }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};

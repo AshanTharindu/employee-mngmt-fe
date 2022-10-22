@@ -93,11 +93,24 @@ const deleteEmployee = async (id, type) => {
   return response.data;
 };
 
+const addComment = async (empId, empType, comment) => {
+  const response = await instance({
+    url: `/employees/${empId}/comments?empType=${empType}`,
+    timeout: 1000 * 5,
+    data: comment,
+    method: 'post',
+  });
+
+  if (response.status !== 200) throw new Error('Adding comment failed');
+  return response.data;
+};
+
 export default {
   fetchEmployees,
   registerEmployee,
   signIn,
   addEmployees,
   deleteEmployee,
-  updateEmployee
+  updateEmployee,
+  addComment,
 };
