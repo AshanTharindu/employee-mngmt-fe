@@ -1,6 +1,6 @@
 import axios from 'axios';
 const instance = axios.create({
-  baseURL: 'https://whispering-castle-21078.herokuapp.com/employee-management',
+  baseURL: 'http://0.0.0.0:3001/employee-management',
   timeout: 1000 * 5,
   headers: {
     'Content-Type': 'application/json',

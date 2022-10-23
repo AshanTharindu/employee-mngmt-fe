@@ -4,7 +4,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { EMPLOYEE_TYPES, ROLES } from '../../constants';
 
 const useStyles = makeStyles((theme) => ({
@@ -42,6 +42,50 @@ const EmployeeEditForm = ({
   const [firstname, setFirstname] = useState(_firstname);
   const [lastname, setLastname] = useState(_lastname);
   const [address, setAddress] = useState(_address);
+  const [error, setError] = useState(false);
+
+  const [firstnameError, setFirstnameError] = useState(false);
+  const [lastnameError, setLastnameError] = useState(false);
+  const [addressError, setAddressError] = useState(false);
+
+  const isValidForm = useCallback(() => {
+    return (
+      firstname &&
+      firstname !== '' &&
+      lastname &&
+      lastname !== '' &&
+      role &&
+      role !== '' &&
+      address &&
+      address !== ''
+    );
+  }, [role, firstname, lastname, address]);
+
+  useEffect(() => {
+    if (isValidForm()) {
+      setError(false);
+    } else {
+      setError(true);
+    }
+
+    if (!firstname || firstname === '') {
+      setFirstnameError(true);
+    } else {
+      setFirstnameError(false);
+    }
+
+    if (!lastname || lastname === '') {
+      setLastnameError(true);
+    } else {
+      setLastnameError(false);
+    }
+
+    if (!address || address === '') {
+      setAddressError(true);
+    } else {
+      setAddressError(false);
+    }
+  }, [firstname, lastname, address, isValidForm]);
 
   const handleChange = (event) => {
     setRole(event.target.value);
@@ -71,6 +115,7 @@ const EmployeeEditForm = ({
                   label='First Name'
                   value={firstname}
                   autoFocus
+                  error={firstnameError}
                   onChange={(event) => setFirstname(event.target.value)}
                 />
               </Grid>
@@ -84,6 +129,7 @@ const EmployeeEditForm = ({
                   name='lastname'
                   value={lastname}
                   autoComplete='lname'
+                  error={lastnameError}
                   onChange={(event) => setLastname(event.target.value)}
                 />
               </Grid>
@@ -99,6 +145,7 @@ const EmployeeEditForm = ({
                   rows={4}
                   multiline
                   autoComplete='address'
+                  error={addressError}
                   onChange={(event) => setAddress(event.target.value)}
                 />
               </Grid>
@@ -123,8 +170,10 @@ const EmployeeEditForm = ({
               </Grid>
             </Grid>
             <Button
+              color='primary'
               variant='contained'
-              color='success'
+              disabled={error}
+              sx={{ mt: 3, mb: 2 }}
               onClick={() => {
                 onSubmitHandler();
               }}

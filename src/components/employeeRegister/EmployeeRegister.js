@@ -1,10 +1,4 @@
-import {
-  Card,
-  CardContent,
-  Grid,
-  makeStyles,
-  MenuItem,
-} from '@material-ui/core';
+import { Card, CardContent, Grid, MenuItem } from '@material-ui/core';
 import { Button } from '@mui/material';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
@@ -13,26 +7,6 @@ import { useDispatch } from 'react-redux';
 import { ROLES } from '../../constants';
 import { registerEmployee } from '../../store/employee-actions';
 import { isValidEmail } from '../../utils/validationUtils';
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
 
 const EmloyeeRegister = () => {
   const [role, setRole] = useState();

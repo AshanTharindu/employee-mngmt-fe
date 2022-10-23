@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { Button } from '@mui/material';
@@ -14,10 +14,11 @@ const useStyles = makeStyles((theme) => ({
 
 const CommentForm = ({ onCommentUpdateHandler }) => {
   const classes = useStyles();
-  const [comment, setComment] = React.useState();
+  const [comment, setComment] = useState();
 
   const onChangeHandler = (event) => {
-    setComment(event.target.value);
+    const value = event.target.value;
+    setComment(value);
   };
 
   return (
@@ -31,17 +32,17 @@ const CommentForm = ({ onCommentUpdateHandler }) => {
           variant='outlined'
           onChange={onChangeHandler}
         />
-        
       </div>
       <Button
-          variant='contained'
-          color='success'
-          onClick={() => {
-            onCommentUpdateHandler(comment);
-          }}
-        >
-          Add Comment
-        </Button>
+        variant='contained'
+        color='primary'
+        disabled={!comment || comment === ''}
+        onClick={() => {
+          onCommentUpdateHandler(comment);
+        }}
+      >
+        Add Comment
+      </Button>
     </form>
   );
 };

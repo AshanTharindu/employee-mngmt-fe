@@ -11,7 +11,7 @@ import Paper from '@mui/material/Paper';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import * as React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useAuth } from '../../hooks/auth-hook';
 
 function Copyright(props) {
@@ -37,14 +37,46 @@ const theme = createTheme();
 const SignIn = () => {
   const { login } = useAuth();
 
+  const [username, setUsername] = useState();
+  const [password, setPassoword] = useState();
+
+  const [usernameError, setUsernameError] = useState(false);
+  const [passwordError, setPassowordError] = useState(false);
+  const [error, setError] = useState(false);
+
+  const isValidForm = useCallback(() => {
+    return username && username !== '' && password && password !== '';
+  }, [username, password]);
+
+  useEffect(() => {
+    if (isValidForm()) {
+      setError(false);
+    } else {
+      setError(true);
+    }
+  }, [username, password, isValidForm]);
+
+  const onUsernameChange = (value) => {
+    if (!value || value === '') {
+      setUsernameError(true);
+    } else {
+      setUsernameError(false);
+    }
+    setUsername(value);
+  };
+
+  const onPasswordChange = (value) => {
+    if (!value || value === '') {
+      setPassowordError(true);
+    } else {
+      setPassowordError(false);
+    }
+    setPassoword(value);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    login({ username: data.get('username'), password: data.get('password') });
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    login({ username, password });
   };
 
   return (
@@ -98,6 +130,9 @@ const SignIn = () => {
                 name='username'
                 autoComplete='email'
                 autoFocus
+                value={username}
+                error={usernameError}
+                onChange={(event) => onUsernameChange(event.target.value)}
               />
               <TextField
                 margin='normal'
@@ -108,15 +143,19 @@ const SignIn = () => {
                 type='password'
                 id='password'
                 autoComplete='current-password'
+                error={passwordError}
+                value={password}
+                onChange={(event) => onPasswordChange(event.target.value)}
               />
               <FormControlLabel
                 control={<Checkbox value='remember' color='primary' />}
                 label='Remember me'
               />
               <Button
-                type='submit'
+                type='primary'
                 fullWidth
                 variant='contained'
+                disabled={error}
                 sx={{ mt: 3, mb: 2 }}
               >
                 Sign In
