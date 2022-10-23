@@ -4,6 +4,11 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 
+/**
+ * Employee information view compoent
+ * @param {*} param0 
+ * @returns 
+ */
 const Employee = ({ id, name, address, role }) => {
   return (
     <Container maxWidth='sm'>

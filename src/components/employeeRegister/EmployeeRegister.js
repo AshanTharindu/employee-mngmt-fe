@@ -8,6 +8,10 @@ import { ROLES } from '../../constants';
 import { registerEmployee } from '../../store/employee-actions';
 import { isValidEmail } from '../../utils/validationUtils';
 
+/**
+ * Employee regisration form
+ * @returns 
+ */
 const EmloyeeRegister = () => {
   const [role, setRole] = useState();
   const [username, setUsername] = useState();

@@ -3,6 +3,11 @@ import Typography from '@material-ui/core/Typography';
 import React from 'react';
 import Comment from './Comment';
 
+/**
+ * Comment list of the employee
+ * @param {*} param0 
+ * @returns 
+ */
 const Comments = ({ comments }) => {
   return (
     <Container maxWidth='sm'>

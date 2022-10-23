@@ -27,6 +27,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/**
+ * Employee data edit form
+ * @param {*} param0 
+ * @returns 
+ */
 const EmployeeEditForm = ({
   id,
   registered,
@@ -48,6 +53,10 @@ const EmployeeEditForm = ({
   const [lastnameError, setLastnameError] = useState(false);
   const [addressError, setAddressError] = useState(false);
 
+  /**
+   * To check if form is valid or not
+   * Based on this update button is enable/disable will do
+   */
   const isValidForm = useCallback(() => {
     return (
       firstname &&
@@ -68,6 +77,7 @@ const EmployeeEditForm = ({
       setError(true);
     }
 
+    // when state changes recalculate the error states
     if (!firstname || firstname === '') {
       setFirstnameError(true);
     } else {

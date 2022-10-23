@@ -82,6 +82,11 @@ const styles = {
   },
 };
 
+
+/**
+ * CSV bulk upload component
+ * @returns 
+ */
 export default function CSVReader() {
   const { CSVReader } = useCSVReader();
   const [zoneHover, setZoneHover] = useState(false);

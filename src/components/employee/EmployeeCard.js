@@ -10,6 +10,11 @@ import Comments from '../comment/Comments';
 import Employee from './Employee';
 import EmployeeEditForm from './EmployeeEditForm';
 
+/**
+ * Employee information and other functionalites
+ * @param {*} param0 
+ * @returns 
+ */
 const EmployeeCard = ({
   id,
   firstname,

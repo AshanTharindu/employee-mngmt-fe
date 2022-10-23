@@ -34,6 +34,10 @@ function Copyright(props) {
 
 const theme = createTheme();
 
+/**
+ * User sign in component
+ * @returns 
+ */
 const SignIn = () => {
   const { login } = useAuth();
 
@@ -49,6 +53,7 @@ const SignIn = () => {
   }, [username, password]);
 
   useEffect(() => {
+    // to check the form errors
     if (isValidForm()) {
       setError(false);
     } else {

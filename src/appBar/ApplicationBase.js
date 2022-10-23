@@ -110,7 +110,10 @@ const ApplicationBase = () => {
       <MenuItem onClick={onLogout}>Logout</MenuItem>
     </Menu>
   );
-
+  
+  /**
+   * Application routes are defined here
+   */
   return (
     <div className={classes.grow}>
       <AppBar position='static'>
