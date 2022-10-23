@@ -116,7 +116,7 @@ const ApplicationBase = () => {
       <AppBar position='static'>
         <Toolbar>
           <Typography className={classes.title} variant='h6' noWrap>
-            Autohaus Toyal Gmbh
+            Autohaus Royal Gmbh
           </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
