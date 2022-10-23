@@ -1,5 +1,6 @@
 import { employeeActions } from './employee-slice';
 import client from '../client/client';
+import { statusActions } from './status-slice';
 
 export const fetchEmloyees = () => {
   return async (dispatch) => {
@@ -8,6 +9,11 @@ export const fetchEmloyees = () => {
       dispatch(employeeActions.fetchEmloyees(employees || []));
     } catch (error) {
       console.log(error);
+      dispatch(
+        statusActions.failedRequset({
+          statusMsg: error.message,
+        })
+      );
     }
   };
 };
@@ -17,10 +23,21 @@ export const registerEmployee = (employee) => {
     try {
       const registeredEmployee = await client.registerEmployee(employee);
       dispatch(employeeActions.addEmloyee(registeredEmployee));
+      dispatch(
+        statusActions.successRequest({
+          statusCode: 201,
+          statusMsg: 'Employee Registered Succussfully',
+        })
+      );
     } catch (error) {
-      console.log(error);
-    }
-  };
+      console.log(error.message);
+      dispatch(
+        statusActions.failedRequset({
+          statusMsg: error.message,
+        })
+      );
+    };
+  }
 };
 
 export const updateEmployee = ({ id, type, employee }) => {
@@ -30,6 +47,11 @@ export const updateEmployee = ({ id, type, employee }) => {
       dispatch(employeeActions.updateEmployee(updatedEmployee));
     } catch (error) {
       console.log(error);
+      dispatch(
+        statusActions.failedRequset({
+          statusMsg: error.message,
+        })
+      );
     }
   };
 };
@@ -41,6 +63,11 @@ export const addEmployees = (employees) => {
       dispatch(employeeActions.addEmloyees(registeredEmployees));
     } catch (error) {
       console.log(error);
+      dispatch(
+        statusActions.failedRequset({
+          statusMsg: error.message,
+        })
+      );
     }
   };
 };
@@ -52,6 +79,11 @@ export const deleteEmployee = ({ id, type }) => {
       dispatch(employeeActions.deleteEmployee(id));
     } catch (error) {
       console.log(error);
+      dispatch(
+        statusActions.failedRequset({
+          statusMsg: error.message,
+        })
+      );
     }
   };
 };
@@ -63,6 +95,11 @@ export const addComment = ({ empId, empType, comment }) => {
       dispatch(employeeActions.addComments({ empId, comment }));
     } catch (error) {
       console.log(error);
+      dispatch(
+        statusActions.failedRequset({
+          statusMsg: error.message,
+        })
+      );
     }
   };
 };

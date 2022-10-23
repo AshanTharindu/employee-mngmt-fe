@@ -11,12 +11,6 @@ const useStyles = makeStyles({
 });
 
 const Comment = ({ comment, date, author }) => {
-  console.log(
-    '🚀 ~ file: Comment.js ~ line 13 ~ Comment ~ comment, date, autho',
-    comment,
-    date,
-    author
-  );
   const classes = useStyles();
 
   return (
