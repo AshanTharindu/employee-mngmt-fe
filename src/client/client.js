@@ -41,7 +41,7 @@ const registerEmployee = async (employee) => {
     method: 'post',
   });
 
-  if (response.status !== 200) throw new Error('Employee Registration failed');
+  if (response.status !== 201) throw new Error('Employee Registration failed');
   return response.data;
 };
 
