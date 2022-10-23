@@ -1,6 +1,8 @@
 import { createContext, useContext, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import client from '../client/client';
+import { statusActions } from '../store/status-slice';
 
 const AuthContext = createContext();
 
@@ -9,6 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [username, setUsername] = useState(null);
   const [authenticated, setAuthenticated] = useState(true);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // call this function when you want to authenticate the user
   const login = async ({ username, password }) => {
@@ -21,6 +24,11 @@ export const AuthProvider = ({ children }) => {
       navigate('/employees');
     } catch (err) {
       console.error(err);
+      dispatch(
+        statusActions.failedRequset({
+          statusMsg: err.message,
+        })
+      );
     }
   };
 

@@ -5,7 +5,6 @@ const instance = axios.create({
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
-    'accept-encoding': 'gzip',
   },
 });
 
@@ -42,7 +41,7 @@ const registerEmployee = async (employee) => {
     method: 'post',
   });
 
-  if (response.status !== 200) throw new Error('Registering employee failed');
+  if (response.status !== 200) throw new Error('Employee Registration failed');
   return response.data;
 };
 
@@ -54,7 +53,7 @@ const updateEmployee = async (id, type, employee) => {
     method: 'patch',
   });
 
-  if (response.status !== 200) throw new Error('Registering employee failed');
+  if (response.status !== 200) throw new Error('Employee update failed');
   return response.data;
 };
 
@@ -66,7 +65,7 @@ const addEmployees = async (employees) => {
     method: 'post',
   });
 
-  if (response.status !== 201) throw new Error('Registering employee failed');
+  if (response.status !== 201) throw new Error('Employee upload failed');
   return response.data;
 };
 

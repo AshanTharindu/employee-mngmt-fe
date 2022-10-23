@@ -9,12 +9,14 @@ import EmloyeeRegister from './components/employeeRegister/EmployeeRegister';
 import Home from './components/Home';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { AuthProvider } from './hooks/auth-hook';
+import ReqeuestStatus from './requestStatus/RequestStatus';
 
 function App() {
   return (
     <AuthProvider>
       <div className='App'>
         <ApplicationBase />
+        <ReqeuestStatus />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/signin' element={<SignIn />} />
