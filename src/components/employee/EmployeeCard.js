@@ -87,7 +87,7 @@ const EmployeeCard = ({
         {!showEdit && (
           <Button
             variant='contained'
-            color='success'
+            color='primary'
             onClick={() => setShowComment(!showComment)}
           >
             {showComment ? 'Close' : 'Comment'}
@@ -96,7 +96,7 @@ const EmployeeCard = ({
         {!showComment && (
           <Button
             variant='contained'
-            color='success'
+            color='primary'
             onClick={() => setShowEdit(!showEdit)}
           >
             {showEdit ? 'Close' : 'Edit'}
