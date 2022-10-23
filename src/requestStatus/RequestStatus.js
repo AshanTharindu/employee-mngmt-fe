@@ -31,11 +31,11 @@ const ReqeuestStatus = () => {
 
   return (
     <div className={classes.root}>
-      <Snackbar open={showAlert} autoHideDuration={6000} onClose={handleClose}>
+      {showAlert && (
         <Alert onClose={handleClose} severity={error ? 'error' : 'success'}>
           {statusMsg}
         </Alert>
-      </Snackbar>
+      )}
     </div>
   );
 };

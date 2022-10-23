@@ -45,6 +45,12 @@ export const updateEmployee = ({ id, type, employee }) => {
     try {
       const updatedEmployee = await client.updateEmployee(id, type, employee);
       dispatch(employeeActions.updateEmployee(updatedEmployee));
+      dispatch(
+        statusActions.successRequest({
+          statusCode: 201,
+          statusMsg: 'Employee Updated Succussfully',
+        })
+      );
     } catch (error) {
       console.log(error);
       dispatch(
@@ -61,6 +67,12 @@ export const addEmployees = (employees) => {
     try {
       const registeredEmployees = await client.addEmployees({ employees });
       dispatch(employeeActions.addEmloyees(registeredEmployees));
+      dispatch(
+        statusActions.successRequest({
+          statusCode: 201,
+          statusMsg: 'Employees Uploaded Succussfully',
+        })
+      );
     } catch (error) {
       console.log(error);
       dispatch(
@@ -77,6 +89,12 @@ export const deleteEmployee = ({ id, type }) => {
     try {
       await client.deleteEmployee(id, type);
       dispatch(employeeActions.deleteEmployee(id));
+      dispatch(
+        statusActions.successRequest({
+          statusCode: 201,
+          statusMsg: 'Employee Removed Succussfully',
+        })
+      );
     } catch (error) {
       console.log(error);
       dispatch(
@@ -93,6 +111,12 @@ export const addComment = ({ empId, empType, comment }) => {
     try {
       comment = await client.addComment(empId, empType, { comment });
       dispatch(employeeActions.addComments({ empId, comment }));
+      dispatch(
+        statusActions.successRequest({
+          statusCode: 201,
+          statusMsg: 'Comment Added Succussfully',
+        })
+      );
     } catch (error) {
       console.log(error);
       dispatch(
