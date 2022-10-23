@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
       console.error(err);
       dispatch(
         statusActions.failedRequset({
-          statusMsg: err.response.data.msg,
+          statusMsg: err.message,
         })
       );
     }
