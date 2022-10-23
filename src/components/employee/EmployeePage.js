@@ -4,6 +4,10 @@ import { EMPLOYEE_TYPES } from '../../constants';
 import { deleteEmployee, fetchEmloyees } from '../../store/employee-actions';
 import EmployeeCard from './EmployeeCard';
 
+/**
+ * Employee overview page
+ * @returns 
+ */
 const EmployeePage = () => {
   const dispatch = useDispatch();
 

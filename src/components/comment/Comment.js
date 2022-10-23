@@ -10,6 +10,11 @@ const useStyles = makeStyles({
   },
 });
 
+/**
+ * Employee view componen
+ * @param {*} param0 
+ * @returns 
+ */
 const Comment = ({ comment, date, author }) => {
   const classes = useStyles();
 

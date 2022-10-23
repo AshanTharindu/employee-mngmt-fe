@@ -12,6 +12,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/**
+ * Comment add component
+ * @param {*} param0 
+ * @returns 
+ */
 const CommentForm = ({ onCommentUpdateHandler }) => {
   const classes = useStyles();
   const [comment, setComment] = useState();
