@@ -58,7 +58,7 @@ const EmployeeEditForm = ({
     <Container maxWidth='sm'>
       <Card sx={{ minWidth: 275 }}>
         <CardContent>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} noValidate={false}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -108,9 +108,11 @@ const EmployeeEditForm = ({
                   id='outlined-select-currency'
                   select
                   label='Role'
+                  required
                   value={role}
                   onChange={handleChange}
                   helperText='Select Your Role'
+                  variant='outlined'
                 >
                   {ROLES.map((option) => (
                     <MenuItem key={option.value} value={option.value}>

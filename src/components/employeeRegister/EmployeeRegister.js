@@ -1,13 +1,38 @@
-import { Button, Typography } from '@mui/material';
-import Box from '@mui/material/Box';
+import {
+  Card,
+  CardContent,
+  Grid,
+  makeStyles,
+  MenuItem,
+} from '@material-ui/core';
+import { Button } from '@mui/material';
 import Container from '@mui/material/Container';
-import CssBaseline from '@mui/material/CssBaseline';
-import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ROLES } from '../../constants';
 import { registerEmployee } from '../../store/employee-actions';
+import { isValidEmail } from '../../utils/validationUtils';
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
 const EmloyeeRegister = () => {
   const [role, setRole] = useState();
@@ -17,6 +42,50 @@ const EmloyeeRegister = () => {
   const [firstname, setFirstname] = useState();
   const [lastname, setLastname] = useState();
   const [address, setAddress] = useState();
+
+  const [usernameError, setUsernameError] = useState(false);
+  const [passwordError, setPassowordError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [firstnameError, setFirstnameError] = useState(false);
+  const [lastnameError, setLastnameError] = useState(false);
+  const [addressError, setAddressError] = useState(false);
+  const [error, setError] = useState(false);
+
+  const isValidForm = useCallback(() => {
+    return (
+      firstname &&
+      firstname !== '' &&
+      lastname &&
+      lastname !== '' &&
+      username &&
+      username !== '' &&
+      password &&
+      password !== '' &&
+      role &&
+      role !== '' &&
+      address &&
+      address !== '' &&
+      email &&
+      isValidEmail(email)
+    );
+  }, [role, username, password, email, firstname, lastname, address]);
+
+  useEffect(() => {
+    if (isValidForm()) {
+      setError(false);
+    } else {
+      setError(true);
+    }
+  }, [
+    role,
+    username,
+    password,
+    email,
+    firstname,
+    lastname,
+    address,
+    isValidForm,
+  ]);
 
   const handleChange = (event) => {
     setRole(event.target.value);
@@ -38,108 +107,195 @@ const EmloyeeRegister = () => {
         address,
         role,
       })
-    );
+    ).then(() => clearForm());
+  };
+
+  const clearForm = () => {
+    setUsername('');
+    setPassoword('');
+    setFirstname('');
+    setLastname('');
+    setEmail('');
+    setAddress('');
+    setRole('');
+  };
+
+  const onFnameChange = (value) => {
+    if (!value || value === '') {
+      setFirstnameError(true);
+    } else {
+      setFirstnameError(false);
+    }
+    setFirstname(value);
+  };
+
+  const onLnameChange = (value) => {
+    if (!value || value === '') {
+      setLastnameError(true);
+    } else {
+      setLastnameError(false);
+    }
+    setLastname(value);
+  };
+
+  const onUsernameChange = (value) => {
+    if (!value || value === '') {
+      setUsernameError(true);
+    } else {
+      setUsernameError(false);
+    }
+    setUsername(value);
+  };
+
+  const onPasswordChange = (value) => {
+    if (!value || value === '') {
+      setPassowordError(true);
+    } else {
+      setPassowordError(false);
+    }
+    setPassoword(value);
+  };
+
+  const onEmailChange = (value) => {
+    if (!value || !isValidEmail(value)) {
+      setEmailError(true);
+    } else {
+      setEmailError(false);
+    }
+    setEmail(value);
+  };
+
+  const onAddressChange = (value) => {
+    if (!value || value === '') {
+      setAddressError(true);
+    } else {
+      setAddressError(false);
+    }
+    setAddress(value);
   };
 
   return (
-    <React.Fragment>
-      <CssBaseline />
-      <Container maxWidth='sm'>
-        <Typography variant='h6' color='inherit' noWrap>
-          Employee Registration
-        </Typography>
-        <Box
-          sx={{
-            width: 500,
-            maxWidth: '100%',
-          }}
-        >
-          <div>
-            <TextField
-              fullWidth
-              error={false}
-              id='username'
-              label='Username'
-              defaultValue=''
-              onChange={(event) => setUsername(event.target.value)}
-            />
-          </div>
-          <div>
-            <TextField
-              fullWidth
-              id='password'
-              label='Password'
-              type='password'
-              autoComplete='current-password'
-              onChange={(event) => setPassoword(event.target.value)}
-            />
-          </div>
-          <div>
-            <TextField
-              fullWidth
-              id='email'
-              label='Email'
-              defaultValue=''
-              onChange={(event) => setEmail(event.target.value)}
-            />
-          </div>
-          <div>
-            <TextField
-              fullWidth
-              id='firstname'
-              label='First Name'
-              defaultValue=''
-              onChange={(event) => setFirstname(event.target.value)}
-            />
-          </div>
-          <div>
-            <TextField
-              fullWidth
-              id='lastname'
-              label='Last Name'
-              defaultValue=''
-              onChange={(event) => setLastname(event.target.value)}
-            />
-          </div>
-          <div>
-            <TextField
-              fullWidth
-              id='address'
-              label='Address'
-              multiline
-              rows={4}
-              defaultValue=''
-              onChange={(event) => setAddress(event.target.value)}
-            />
-          </div>
-          <div>
-            <TextField
-              fullWidth
-              id='outlined-select-currency'
-              select
-              label='Select'
-              value={role}
-              onChange={handleChange}
-              helperText='Select Your Role'
-            >
-              {ROLES.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-          </div>
+    <Container maxWidth='sm'>
+      <Card sx={{ minWidth: 275 }}>
+        <CardContent>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                autoComplete='username'
+                name='username'
+                variant='outlined'
+                required
+                fullWidth
+                error={usernameError}
+                id='username'
+                label='Username'
+                value={username}
+                autoFocus
+                onChange={(event) => onUsernameChange(event.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                id='password'
+                label='Password'
+                type='password'
+                autoComplete='current-password'
+                error={passwordError}
+                value={password}
+                onChange={(event) => onPasswordChange(event.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                autoComplete='fname'
+                name='firstName'
+                variant='outlined'
+                required
+                fullWidth
+                id='firstname'
+                label='First Name'
+                value={firstname}
+                autoFocus
+                error={firstnameError}
+                onChange={(event) => onFnameChange(event.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                variant='outlined'
+                required
+                fullWidth
+                id='lastName'
+                label='Last Name'
+                name='lastname'
+                value={lastname}
+                autoComplete='lname'
+                error={lastnameError}
+                onChange={(event) => onLnameChange(event.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id='email'
+                label='Email'
+                value={email}
+                error={emailError}
+                onChange={(event) => onEmailChange(event.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant='outlined'
+                required
+                fullWidth
+                id='address'
+                label='Address'
+                name='address'
+                value={address}
+                rows={4}
+                multiline
+                autoComplete='address'
+                error={addressError}
+                onChange={(event) => onAddressChange(event.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                id='outlined-select-currency'
+                select
+                label='Role'
+                required
+                value={role}
+                onChange={handleChange}
+                helperText='Select Your Role'
+                variant='outlined'
+              >
+                {ROLES.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Grid>
+          </Grid>
           <Button
+            color='primary'
             variant='contained'
+            disabled={error}
+            sx={{ mt: 3, mb: 2 }}
             onClick={() => {
               onSubmitHandler();
             }}
           >
             Register
           </Button>
-        </Box>
-      </Container>
-    </React.Fragment>
+        </CardContent>
+      </Card>
+    </Container>
   );
 };
 
